@@ -1,0 +1,66 @@
+[data-module="select"][data-template="city"]
+    BOX_BORDER_WIDTH = 1px;
+    BOX_HEIGHT = 25px;
+    ARROW_WIDTH = BOX_HEIGHT;
+    ARROW_HEIGHT = ARROW_WIDTH - (BOX_BORDER_WIDTH * 2);
+    INPUT_BORDER_RADIUS = 3px;
+    ARROW_BORDER_RADIUS = INPUT_BORDER_RADIUS - BOX_BORDER_WIDTH;
+    INPUT_SIDE_PADDING = 2px;
+    position: relative;
+    border-radius: 3px;
+    height: BOX_HEIGHT;
+    padding: 0
+    width: 200px;
+    max-width: 100%
+    overflow: visible;
+    display: inline-block;
+    color: #000000
+    &:hover
+        z-index: 100500;
+    .arrow
+        display: block;
+        position: absolute;
+        width: ARROW_WIDTH
+        height: ARROW_HEIGHT;
+        right: BOX_BORDER_WIDTH;
+        top: BOX_BORDER_WIDTH;
+        background-color: rgba(0,0,0,0);
+        background-image: url('/static/images/selects/arrow.svg');
+        background-size 70%;
+        background-position center;
+        background-repeat: no-repeat
+        content: ""
+        cursor: pointer;
+        border-radius: 0 ARROW_BORDER_RADIUS ARROW_BORDER_RADIUS 0;
+        &:focus ~ menu
+            display: block;
+    input
+        margin: 0;
+        padding: 0 (ARROW_WIDTH + INPUT_SIDE_PADDING) 0 INPUT_SIDE_PADDING;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        border: solid BOX_BORDER_WIDTH #B2B3B3;
+        &:focus ~ menu
+            display: block;
+    menu
+        display: none;
+        width: 100%;
+        max-height: 100px;
+        position: absolute;
+        background-color: #ffffff;
+        box-shadow: 0 0 5px 0 rgba(0,0,0,0.5)
+        overflow auto;
+
+        button
+            display: block;
+            position: relative;
+            width: 100%
+            min-height: BOX_HEIGHT;
+            box-sizing: border-box
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            &:not([disabled])
+                &:hover
+                    background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1));
+        button:nth-last-child(1)
+            border-bottom: none;

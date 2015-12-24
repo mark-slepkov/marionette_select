@@ -1,0 +1,14 @@
+{% if current_title == '' %}
+    {% set current_title = "*Выберите вариант*" %}
+{% endif %}
+<input type="text" placeholder="{{ placeholder }}" value="{{ current_title }}" />
+<button class="arrow" data-action="open-close"></button>
+<menu>
+    {% for item in items %}
+        {% if item['title'] != '' %}
+            <button data-value="{{ item['id'] }}">{{ item['title'] }}</button>
+        {% else %}
+            <button data-value="{{ item['id'] }}">*Выберите вариант*</button>
+        {% endif %}
+    {% endfor %}
+</menu>

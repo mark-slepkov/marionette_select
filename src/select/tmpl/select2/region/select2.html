@@ -1,0 +1,10 @@
+{% if title == None %}
+    {% set current_title = "*Выберите регион*" %}
+{% else %}
+    {% set current_title = title %}
+{% endif %}
+<input type="text" placeholder="{{ placeholder }}" value="{{ current_title }}" />
+<button class="arrow" data-action="open-close"></button>
+<menu>
+
+</menu>
