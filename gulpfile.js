@@ -19,13 +19,20 @@ var paths = {
         dest: 'dist/select/'
     }
 };
+
 gulp.task('coffee', function(){
     gulp.src(paths.coffee.src).pipe(coffee()).pipe(gulp.dest(paths.coffee.dest))
 });
+
 gulp.task('stylus', function(){
     gulp.src(paths.stylus.src).pipe(stylus()).pipe(gulp.dest(paths.stylus.dest))
 });
+
+
+
 gulp.task('html', function(){
     gulp.src(paths.html.src).pipe(gulp.dest(paths.html.dest))
 });
+
 gulp.task("build", ['coffee', 'stylus', 'html']);
+gulp.task("default", ['build']);

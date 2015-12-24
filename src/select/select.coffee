@@ -1,36 +1,42 @@
 define(
     (require, exports, module)->
         Marionette = require('marionette')
-
+        Backbone = require('backbone')
+        ###
+            Копипаста!!! надо бы разобраться
+        ###
 
         class SelectItem extends Marionette.ItemView
             __module__: 'select'
             __application__: 'item'
+            events:
+                'mousedown': 'select'
 
             initialize: ()->
                 this.generate_template()
 
+            select: ()->
+                this.model.collection.trigger('select', this.model)
 
         class Select extends Marionette.CompositeView
             __module__: 'select'
-            __application__: 'select'
+            __application__: 'select2'
+            className: 'select'
             childView: SelectItem
             childViewContainer: 'menu'
             events:
-                'mousedown menu button': 'select'
                 'focus *': 'open'
                 'blur *': 'close'
 
-
-            initialize: (options)->
-                if options.__template__
-                    this.__template__ = options.__template__
+            # items = [{key: 'key', value: 'value'}, ...]
+            initialize: (items)->
                 this.generate_template()
-                this.open_flag = false
-                if not this.model
-                    this.model = this.collection
-                this.model.on('sync', this.render, this)
-                this.model.on('change', this.render, this)
+                this.collection = new Backbone.Collection()
+                this.model = new Backbone.Model(id: null)
+                for item of items
+                    this.collection.add(items[item])
+                this.collection.on('change', this.render, this)
+                this.collection.on('select', this.select, this)
                 return this
 
             open: ()->
@@ -41,11 +47,22 @@ define(
                 this.open_flag = false
                 this.$el.css('z-index': '')
 
-            select: (e)->
-                id = $(e.target).attr('data-value')
-                title = $(e.target).text()
-                this.model.set(current_value: id)
-                this.model.set(current_title: title)
+            select: (model)->
+                this.model = model
+                this.trigger('select', model)
+                this.render()
+
+            get_value: ()->
+                return this.model.toJSON()
+
+            @collection_to_key_value: (collection, key_name, value_name)->
+                result = []
+                for model in collection.models
+                    id = model.get(key_name)
+                    value = model.get(value_name)
+                    result.push({id: id, title: value})
+                return result
+
 
 
         return Select

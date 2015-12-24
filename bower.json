@@ -15,7 +15,7 @@
     "ui",
     "widget"
   ],
-  "license": "GPL",
+  "license": "MIT",
   "homepage": "",
   "ignore": [
     "**/.*",
