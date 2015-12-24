@@ -3,8 +3,13 @@
     hasProp = {}.hasOwnProperty;
 
   define(function(require, exports, module) {
-    var Marionette, Select, SelectItem;
+    var Backbone, Marionette, Select, SelectItem;
     Marionette = require('marionette');
+    Backbone = require('backbone');
+
+    /*
+        Копипаста!!! надо бы разобраться
+     */
     SelectItem = (function(superClass) {
       extend(SelectItem, superClass);
 
@@ -16,8 +21,16 @@
 
       SelectItem.prototype.__application__ = 'item';
 
+      SelectItem.prototype.events = {
+        'mousedown': 'select'
+      };
+
       SelectItem.prototype.initialize = function() {
         return this.generate_template();
+      };
+
+      SelectItem.prototype.select = function() {
+        return this.model.collection.trigger('select', this.model);
       };
 
       return SelectItem;
@@ -32,29 +45,31 @@
 
       Select.prototype.__module__ = 'select';
 
-      Select.prototype.__application__ = 'select';
+      Select.prototype.__application__ = 'select2';
+
+      Select.prototype.className = 'select';
 
       Select.prototype.childView = SelectItem;
 
       Select.prototype.childViewContainer = 'menu';
 
       Select.prototype.events = {
-        'mousedown menu button': 'select',
         'focus *': 'open',
         'blur *': 'close'
       };
 
-      Select.prototype.initialize = function(options) {
-        if (options.__template__) {
-          this.__template__ = options.__template__;
-        }
+      Select.prototype.initialize = function(items) {
+        var item;
         this.generate_template();
-        this.open_flag = false;
-        if (!this.model) {
-          this.model = this.collection;
+        this.collection = new Backbone.Collection();
+        this.model = new Backbone.Model({
+          id: null
+        });
+        for (item in items) {
+          this.collection.add(items[item]);
         }
-        this.model.on('sync', this.render, this);
-        this.model.on('change', this.render, this);
+        this.collection.on('change', this.render, this);
+        this.collection.on('select', this.select, this);
         return this;
       };
 
@@ -72,16 +87,30 @@
         });
       };
 
-      Select.prototype.select = function(e) {
-        var id, title;
-        id = $(e.target).attr('data-value');
-        title = $(e.target).text();
-        this.model.set({
-          current_value: id
-        });
-        return this.model.set({
-          current_title: title
-        });
+      Select.prototype.select = function(model) {
+        this.model = model;
+        this.trigger('select', model);
+        return this.render();
+      };
+
+      Select.prototype.get_value = function() {
+        return this.model.toJSON();
+      };
+
+      Select.collection_to_key_value = function(collection, key_name, value_name) {
+        var i, id, len, model, ref, result, value;
+        result = [];
+        ref = collection.models;
+        for (i = 0, len = ref.length; i < len; i++) {
+          model = ref[i];
+          id = model.get(key_name);
+          value = model.get(value_name);
+          result.push({
+            id: id,
+            title: value
+          });
+        }
+        return result;
       };
 
       return Select;
