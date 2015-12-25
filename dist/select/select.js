@@ -6,10 +6,6 @@
     var Backbone, Marionette, Select, SelectItem;
     Marionette = require('marionette');
     Backbone = require('backbone');
-
-    /*
-        Копипаста!!! надо бы разобраться
-     */
     SelectItem = (function(superClass) {
       extend(SelectItem, superClass);
 
@@ -45,13 +41,13 @@
 
       Select.prototype.__module__ = 'select';
 
-      Select.prototype.__application__ = 'select2';
+      Select.prototype.__application__ = 'select';
 
       Select.prototype.className = 'select';
 
       Select.prototype.childView = SelectItem;
 
-      Select.prototype.childViewContainer = 'menu';
+      Select.prototype.childViewContainer = '[data-region="items"]';
 
       Select.prototype.events = {
         'focus *': 'open',

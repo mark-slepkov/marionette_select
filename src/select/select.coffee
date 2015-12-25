@@ -2,9 +2,6 @@ define(
     (require, exports, module)->
         Marionette = require('marionette')
         Backbone = require('backbone')
-        ###
-            Копипаста!!! надо бы разобраться
-        ###
 
         class SelectItem extends Marionette.ItemView
             __module__: 'select'
@@ -20,10 +17,10 @@ define(
 
         class Select extends Marionette.CompositeView
             __module__: 'select'
-            __application__: 'select2'
+            __application__: 'select'
             className: 'select'
             childView: SelectItem
-            childViewContainer: 'menu'
+            childViewContainer: '[data-region="items"]'
             events:
                 'focus *': 'open'
                 'blur *': 'close'
