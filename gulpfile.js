@@ -6,6 +6,9 @@ var gulp = require('gulp');
 var coffee = require('gulp-coffee');
 var stylus = require('gulp-stylus');
 var concat = require('gulp-concat');
+var gutil = require("gulp-util");
+var webpack = require("webpack");
+
 var paths = {
     stylus: {
         src: 'src/select/**/*.styl',
@@ -43,8 +46,7 @@ gulp.task('html', function(){
     gulp.src(paths.html.src).pipe(gulp.dest(paths.html.dest))
 });
 
-var gutil = require("gulp-util");
-var webpack = require("webpack");
+
 //var WebpackDevServer = require("webpack-dev-server");
 
 gulp.task('webpack', function(callback){
