@@ -67,11 +67,11 @@ gulp.task('webpack', function(callback){
         },
         devtool: "source-map",
         plugins: [
-            //new webpack.optimize.UglifyJsPlugin({
-            //    warnings: false,
-            //    drop_console: true,
-            //    unsafe: true
-            //})
+            new webpack.optimize.UglifyJsPlugin({
+                warnings: false,
+                drop_console: true,
+                unsafe: true
+            }),
             new webpack.ResolverPlugin([
                     new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
                 ],
