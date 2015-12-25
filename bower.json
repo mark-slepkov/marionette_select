@@ -5,7 +5,7 @@
     "Mark Slepkov <self@mark-slepkov.ru>"
   ],
   "description": "select widget for backbone.marionette based projects",
-  "main": "dist/select/",
+  "main": "dist/select/select.js",
   "moduleType": [
     "amd"
   ],
