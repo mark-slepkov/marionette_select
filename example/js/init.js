@@ -6,7 +6,6 @@ var $ = require('jquery');
 var Marionette = require('marionette');
 var _ = require('underscore');
 
-console.log(nunjucks);
 nunjucks.configure('/dist', {autoescape: true});
 Marionette.TemplateCache.prototype.loadTemplate =
     function(templatePath, options) {
@@ -18,7 +17,7 @@ Marionette.Renderer.render =
         return nunjucks.render(templatePath, options);
     };
 
-Marionette.View.prototype.generate_template =
+Marionette.View.prototype.getTemplate =
     function(options){
         if (!options){
             options = {};

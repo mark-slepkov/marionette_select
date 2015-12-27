@@ -9,9 +9,6 @@ define(
             events:
                 'mousedown': 'select'
 
-            initialize: ()->
-                this.generate_template()
-
             select: ()->
                 this.model.collection.trigger('select', this.model)
 
@@ -27,7 +24,6 @@ define(
 
             # items = [{key: 'key', value: 'value'}, ...]
             initialize: (items)->
-                this.generate_template()
                 this.collection = new Backbone.Collection()
                 this.model = new Backbone.Model(id: null)
                 for item of items

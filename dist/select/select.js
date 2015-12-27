@@ -21,10 +21,6 @@
         'mousedown': 'select'
       };
 
-      SelectItem.prototype.initialize = function() {
-        return this.generate_template();
-      };
-
       SelectItem.prototype.select = function() {
         return this.model.collection.trigger('select', this.model);
       };
@@ -56,7 +52,6 @@
 
       Select.prototype.initialize = function(items) {
         var item;
-        this.generate_template();
         this.collection = new Backbone.Collection();
         this.model = new Backbone.Model({
           id: null

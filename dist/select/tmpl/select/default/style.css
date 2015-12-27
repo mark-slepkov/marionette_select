@@ -66,18 +66,3 @@
   box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
   overflow: auto;
 }
-[data-module="select"][data-application="select"][data-template="default"] [data-region="items"] button {
-  display: block;
-  position: relative;
-  border: none;
-  width: 100%;
-  min-height: 25px;
-  box-sizing: border-box;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-[data-module="select"][data-application="select"][data-template="default"] [data-region="items"] button:not([disabled]):hover {
-  background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1));
-}
-[data-module="select"][data-application="select"][data-template="default"] [data-region="items"] button:nth-last-child(1) {
-  border-bottom: none;
-}
