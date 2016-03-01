@@ -10,6 +10,9 @@ define(
             events:
                 'mousedown': 'select'
 
+            initialize: ()->
+                this.generate_template()
+
             select: ()->
                 this.triggerMethod('select', this.model)
 
@@ -36,6 +39,7 @@ define(
 
             # items = [{key: 'key', value: 'value'}, ...]
             initialize: (options)->
+                this.generate_template()
                 console.log(this)
                 items = options.items
                 this.options.value_field = value_field = options['value_field'] || 'id'    # Поле модели, которое будет играть роль аттрибута value тега option
