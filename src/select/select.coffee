@@ -47,9 +47,9 @@ define(
                     model_initial_value = {}
                     model_initial_value[value_field] = null
                     model_initial_value[title_field] = null
-                    this.model = new Backbone.Model(model_initial_value)
                     for index, item of items
                         this.collection.add(item)
+                this.model = new Backbone.Model(model_initial_value)
                 return this
 
             templateHelpers: ()->
