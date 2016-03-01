@@ -42,6 +42,7 @@ Marionette.View.prototype.getTemplate =
     };
 var MarionetteSelect = require('select/select');
 var loading = function(){
+    var input = $('input');
     var items = [
         {key: "Mark", value: 1},
         {key: "Vasya", value: 2},
@@ -50,7 +51,7 @@ var loading = function(){
         {key: "T-800", value: 5},
         {key: "Gandalf", value: 6}
     ];
-    var select = new MarionetteSelect(items);
+    var select = new MarionetteSelect({items: items, value_field: 'value', title_field: 'key', form_map: input});
     $('body').append(select.$el);
     select.render()
 };

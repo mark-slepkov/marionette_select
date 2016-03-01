@@ -3,9 +3,10 @@
     hasProp = {}.hasOwnProperty;
 
   define(function(require, exports, module) {
-    var Backbone, Marionette, Select, SelectItem;
+    var Backbone, Marionette, Select, SelectItem, _;
     Marionette = require('marionette');
     Backbone = require('backbone');
+    _ = require('underscore');
     SelectItem = (function(superClass) {
       extend(SelectItem, superClass);
 
@@ -22,7 +23,15 @@
       };
 
       SelectItem.prototype.select = function() {
-        return this.model.collection.trigger('select', this.model);
+        return this.triggerMethod('select', this.model);
+      };
+
+      SelectItem.prototype.templateHelpers = function() {
+        var title_field;
+        title_field = this.getOption('title_field');
+        return {
+          title: this.model.get(title_field)
+        };
       };
 
       return SelectItem;
@@ -45,23 +54,63 @@
 
       Select.prototype.childViewContainer = '[data-region="items"]';
 
+      Select.prototype.ui = {
+        input: 'input'
+      };
+
       Select.prototype.events = {
         'focus *': 'open',
         'blur *': 'close'
       };
 
-      Select.prototype.initialize = function(items) {
-        var item;
-        this.collection = new Backbone.Collection();
-        this.model = new Backbone.Model({
-          id: null
-        });
-        for (item in items) {
-          this.collection.add(items[item]);
+      Select.prototype.collectionEvents = {
+        change: 'render'
+      };
+
+      Select.prototype.childEvents = {
+        select: 'select'
+      };
+
+      Select.prototype.initialize = function(options) {
+        var form_map, index, item, items, model_initial_value, title_field, value_field;
+        console.log(this);
+        items = options.items;
+        this.options.value_field = value_field = options['value_field'] || 'id';
+        this.options.title_field = title_field = options['title_field'] || 'title';
+        form_map = options['form_map'];
+        if (!this.collection) {
+          this.collection = new Backbone.Collection();
+          model_initial_value = {};
+          model_initial_value[value_field] = null;
+          model_initial_value[title_field] = null;
+          this.model = new Backbone.Model(model_initial_value);
+          for (index in items) {
+            item = items[index];
+            this.collection.add(item);
+          }
         }
-        this.collection.on('change', this.render, this);
-        this.collection.on('select', this.select, this);
         return this;
+      };
+
+      Select.prototype.templateHelpers = function() {
+        var title, title_field;
+        title_field = this.getOption('title_field');
+        title = this.model.get(title_field);
+        return {
+          title: title
+        };
+      };
+
+      Select.prototype.buildChildView = function(model, ChildViewClass) {
+        var full_options, options, title_field;
+        title_field = this.getOption('title_field');
+        options = {
+          title_field: title_field
+        };
+        full_options = _.extend({
+          model: model
+        }, options);
+        return new ChildViewClass(full_options);
       };
 
       Select.prototype.open = function() {
@@ -78,10 +127,17 @@
         });
       };
 
-      Select.prototype.select = function(model) {
-        this.model = model;
-        this.trigger('select', model);
-        return this.render();
+      Select.prototype.select = function() {
+        var form_map, model, title, value;
+        this.model = model = arguments[arguments.length - 1];
+        form_map = this.getOption('form_map');
+        if (form_map) {
+          value = model.get(this.getOption('value_field'));
+          title = model.get(this.getOption('title_field'));
+          form_map.val(value);
+          this.ui.input.val(title);
+        }
+        return this.triggerMethod('select', model);
       };
 
       Select.prototype.get_value = function() {

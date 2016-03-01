@@ -14,6 +14,7 @@ module.exports = {
     resolve: {
         modulesDirectories: ['', 'dist', 'bower_components'],
         // extensions: ['.js'],
+
         alias: {
             marionette: 'backbone.marionette'
         }
