@@ -124,6 +124,7 @@
       };
 
       Select.prototype.on_open_button_click = function() {
+        console.log(this.ui.input);
         return this.ui.input.focus();
       };
 
