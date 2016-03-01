@@ -72,6 +72,7 @@ define(
                 return new ChildViewClass(full_options)
 
             on_open_button_click: ()->
+                console.log(this.ui.input)
                 this.ui.input.focus()
 
             open: ()->
