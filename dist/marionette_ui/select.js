@@ -123,9 +123,11 @@
         return new ChildViewClass(full_options);
       };
 
-      Select.prototype.on_open_button_click = function() {
+      Select.prototype.on_open_button_click = function(e) {
+        e.preventDefault();
         console.log(this.ui.input);
-        return this.ui.input.focus();
+        this.ui.input.focus();
+        return false;
       };
 
       Select.prototype.open = function() {

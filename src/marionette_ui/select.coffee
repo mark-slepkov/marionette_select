@@ -71,9 +71,11 @@ define(
                 full_options = _.extend(model: model, options)
                 return new ChildViewClass(full_options)
 
-            on_open_button_click: ()->
+            on_open_button_click: (e)->
+                e.preventDefault()
                 console.log(this.ui.input)
                 this.ui.input.focus()
+                return false
 
             open: ()->
                 this.open_flag = true
