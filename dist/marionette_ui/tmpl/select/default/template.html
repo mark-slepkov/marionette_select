@@ -3,7 +3,7 @@
 {% else %}
     {% set current_title = title %}
 {% endif %}
-<input type="text" placeholder="{{ placeholder }}" value="{{ current_title }}" />
+<input type="text" data-content="title" placeholder="{{ placeholder }}" value="{{ current_title }}" />
 <input type="hidden" name="{{ name }}" />
 <div class="arrow" data-action="open-close"></div>
 <div data-region="items">

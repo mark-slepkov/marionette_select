@@ -27,7 +27,7 @@ define(
             childView: SelectItem
             childViewContainer: '[data-region="items"]'
             ui:
-                input: 'input[type="text"]'
+                input: '[data-content="title"]'
                 input_result: 'input[type="hidden"]'
                 open_button: '[data-action="open-close"]'
             events:
@@ -72,7 +72,7 @@ define(
                 return new ChildViewClass(full_options)
 
             on_open_button_click: ()->
-                console.log(this.ui.input)
+#                console.log(this.ui.input)
                 this.ui.input.focus()
 
             open: ()->

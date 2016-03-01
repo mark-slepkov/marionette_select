@@ -59,7 +59,7 @@
       Select.prototype.childViewContainer = '[data-region="items"]';
 
       Select.prototype.ui = {
-        input: 'input[type="text"]',
+        input: '[data-content="title"]',
         input_result: 'input[type="hidden"]',
         open_button: '[data-action="open-close"]'
       };
@@ -124,7 +124,6 @@
       };
 
       Select.prototype.on_open_button_click = function() {
-        console.log(this.ui.input);
         return this.ui.input.focus();
       };
 
