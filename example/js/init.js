@@ -16,7 +16,7 @@ Marionette.Renderer.render =
     function(templatePath, options){
         return nunjucks.render(templatePath, options);
     };
-
+Marionette.View.prototype.generate_template = function(){};
 Marionette.View.prototype.getTemplate =
     function(options){
         if (!options){
@@ -40,7 +40,7 @@ Marionette.View.prototype.getTemplate =
         // console.log(this.attributes)
         return template_url;
     };
-var MarionetteSelect = require('select/select');
+var MarionetteSelect = require('marionette_ui/select');
 var loading = function(){
     var input = $('input');
     var items = [
@@ -51,7 +51,14 @@ var loading = function(){
         {key: "T-800", value: 5},
         {key: "Gandalf", value: 6}
     ];
-    var select = new MarionetteSelect({items: items, value_field: 'value', title_field: 'key', form_map: input});
+    var select = new MarionetteSelect(
+        {
+            items: items,
+            value_field: 'value',
+            title_field: 'key',
+            form_map: input,
+            name: 'any_fucking_name'
+        });
     $('body').append(select.$el);
     select.render()
 };

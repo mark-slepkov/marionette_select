@@ -4,6 +4,7 @@
     {% set current_title = title %}
 {% endif %}
 <input type="text" placeholder="{{ placeholder }}" value="{{ current_title }}" />
-<div class="arrow" data-action="open-close" tabindex="-1"></div>
+<input type="hidden" name="{{ name }}" />
+<div class="arrow" data-action="open-close"></div>
 <div data-region="items">
 </div>

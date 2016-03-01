@@ -27,9 +27,12 @@ define(
             childView: SelectItem
             childViewContainer: '[data-region="items"]'
             ui:
-                input: 'input'
+                input: 'input[type="text"]'
+                input_result: 'input[type="hidden"]'
+                open_button: '[data-action="open-close"]'
             events:
                 'focus *': 'open'
+                'click @ui.open_button': 'on_open_button_click'
                 'blur *': 'close'
 
             collectionEvents:
@@ -58,14 +61,18 @@ define(
 
             templateHelpers: ()->
                 title_field = this.getOption('title_field')
+                name = this.getOption('name')
                 title = this.model.get(title_field)
-                return title: title
+                return title: title, name: name
 
             buildChildView: (model, ChildViewClass)->
                 title_field = this.getOption('title_field')
                 options = title_field: title_field
                 full_options = _.extend(model: model, options)
                 return new ChildViewClass(full_options)
+
+            on_open_button_click: ()->
+                this.ui.input.focus()
 
             open: ()->
                 this.open_flag = true
@@ -78,11 +85,16 @@ define(
             select: ()->
                 this.model = model = arguments[arguments.length-1]
                 form_map = this.getOption('form_map')
+                title = model.get(this.getOption('title_field'))
+                value = model.get(this.getOption('value_field'))
+                # Если в options был передан form_map, то кидаем в него выбранное значение
                 if form_map
-                    value = model.get(this.getOption('value_field'))
-                    title = model.get(this.getOption('title_field'))
                     form_map.val(value)
-                    this.ui.input.val(title)
+                this.ui.input.val(title)
+                # Если в options был передан name, то это значит что внутренний input будет использован
+                # при чтении данных из формы и мы кидаем значение и в него
+                if this.getOption('name')
+                    this.ui.input_result.val(value)
                 this.triggerMethod('select', model)
 #                this.render()
 

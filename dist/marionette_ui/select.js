@@ -59,11 +59,14 @@
       Select.prototype.childViewContainer = '[data-region="items"]';
 
       Select.prototype.ui = {
-        input: 'input'
+        input: 'input[type="text"]',
+        input_result: 'input[type="hidden"]',
+        open_button: '[data-action="open-close"]'
       };
 
       Select.prototype.events = {
         'focus *': 'open',
+        'click @ui.open_button': 'on_open_button_click',
         'blur *': 'close'
       };
 
@@ -98,11 +101,13 @@
       };
 
       Select.prototype.templateHelpers = function() {
-        var title, title_field;
+        var name, title, title_field;
         title_field = this.getOption('title_field');
+        name = this.getOption('name');
         title = this.model.get(title_field);
         return {
-          title: title
+          title: title,
+          name: name
         };
       };
 
@@ -116,6 +121,10 @@
           model: model
         }, options);
         return new ChildViewClass(full_options);
+      };
+
+      Select.prototype.on_open_button_click = function() {
+        return this.ui.input.focus();
       };
 
       Select.prototype.open = function() {
@@ -136,11 +145,14 @@
         var form_map, model, title, value;
         this.model = model = arguments[arguments.length - 1];
         form_map = this.getOption('form_map');
+        title = model.get(this.getOption('title_field'));
+        value = model.get(this.getOption('value_field'));
         if (form_map) {
-          value = model.get(this.getOption('value_field'));
-          title = model.get(this.getOption('title_field'));
           form_map.val(value);
-          this.ui.input.val(title);
+        }
+        this.ui.input.val(title);
+        if (this.getOption('name')) {
+          this.ui.input_result.val(value);
         }
         return this.triggerMethod('select', model);
       };
