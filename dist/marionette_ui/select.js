@@ -22,6 +22,10 @@
         'mousedown': 'select'
       };
 
+      SelectItem.prototype.initialize = function() {
+        return this.generate_template();
+      };
+
       SelectItem.prototype.select = function() {
         return this.triggerMethod('select', this.model);
       };
@@ -73,6 +77,7 @@
 
       Select.prototype.initialize = function(options) {
         var form_map, index, item, items, model_initial_value, title_field, value_field;
+        this.generate_template();
         console.log(this);
         items = options.items;
         this.options.value_field = value_field = options['value_field'] || 'id';
