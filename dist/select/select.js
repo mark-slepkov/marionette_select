@@ -14,9 +14,9 @@
         return SelectItem.__super__.constructor.apply(this, arguments);
       }
 
-      SelectItem.prototype.__module__ = 'select';
+      SelectItem.prototype.__module__ = 'marionette_ui';
 
-      SelectItem.prototype.__application__ = 'item';
+      SelectItem.prototype.__application__ = 'select_item';
 
       SelectItem.prototype.events = {
         'mousedown': 'select'
@@ -44,7 +44,7 @@
         return Select.__super__.constructor.apply(this, arguments);
       }
 
-      Select.prototype.__module__ = 'select';
+      Select.prototype.__module__ = 'marionette_ui';
 
       Select.prototype.__application__ = 'select';
 

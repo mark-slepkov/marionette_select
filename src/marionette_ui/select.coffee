@@ -5,8 +5,8 @@ define(
         _ = require('underscore')
 
         class SelectItem extends Marionette.ItemView
-            __module__: 'select'
-            __application__: 'item'
+            __module__: 'marionette_ui'
+            __application__: 'select_item'
             events:
                 'mousedown': 'select'
 
@@ -18,7 +18,7 @@ define(
                 return title: this.model.get(title_field)
 
         class Select extends Marionette.CompositeView
-            __module__: 'select'
+            __module__: 'marionette_ui'
             __application__: 'select'
             className: 'select'
             childView: SelectItem

@@ -11,25 +11,25 @@ var webpack = require("webpack");
 
 var paths = {
     stylus: {
-        src: 'src/select/**/*.styl',
-        dest: 'dist/select/'
+        src: 'src/marionette_ui/**/*.styl',
+        dest: 'dist/marionette_ui/'
     },
     coffee: {
-        src: 'src/select/**/*.coffee',
-        dest: 'dist/select/'
+        src: 'src/marionette_ui/**/*.coffee',
+        dest: 'dist/marionette_ui/'
     },
     html: {
-        src: 'src/select/**/*.html',
-        dest: 'dist/select/'
+        src: 'src/marionette_ui/**/*.html',
+        dest: 'dist/marionette_ui/'
     },
     css: {  // For the example
-        src: 'dist/select/**/*.css',
+        src: 'dist/marionette_ui/**/*.css',
         dest: 'example/css'
     },
     js:{
         src: {
             entry: "example/js/init.js",
-            compiled: "dist/select/**.js"
+            compiled: "dist/marionette_ui/**.js"
         }
     }
 };
